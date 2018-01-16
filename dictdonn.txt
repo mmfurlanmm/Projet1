@@ -1,0 +1,57 @@
+Dictionnaire de données 
+
+Nom : IdSondage
+Type : Auto_increment
+Taille : 25,0
+Commentaire : 
+
+Nom : ChoixMultiple
+Type : Bool
+Taille : 25,0
+Commentaire : 
+
+Nom : Question
+Type : Text
+Taille : 25,2
+Commentaire : 
+
+Nom : NbVotants
+Type : Int
+Taille : 25,0
+Commentaire : 
+
+Nom : IdChoix
+Type : Int
+Taille : 25,0
+Commentaire : 
+
+Nom : IntituleChoix
+Type : Text
+Taille : 25,0
+Commentaire : 
+
+Nom : LienSuppression
+Type : Varchar
+Taille : 25,0
+Commentaire : 
+
+Nom : LienResultat
+Type : Varchar
+Taille : 25,0
+Commentaire : 
+
+Nom : LienPartage
+Type : Varchar
+Taille : 255,0
+Commentaire : 
+
+Nom : IdSondage
+Type : Int
+Taille : 25,0
+Commentaire : 
+
+Nom : IdChoix
+Type : Auto_increment
+Taille : 25,0
+Commentaire : 
+
