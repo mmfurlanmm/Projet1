@@ -1,0 +1,72 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Création du sondage</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../Content/style.css">
+
+
+</head>
+
+
+<body>
+    <header>
+
+        <img id="wolf" alt="Loup" src="../../Content/wolf.jpg">
+        <p id=APLogo>AlphaPoll</p>
+
+    </header>
+
+    <p id=creationDuSondage>
+        Création du sondage :
+    </p>
+
+    <form action="Sondage" method="post">
+        <div id="question">
+            <input id="questionBox" type="text" name="Question" placeholder="Tapez votre question ici">
+
+        </div>
+
+        <div id="sectionChoix">
+            <ol>
+                <li>
+
+                    <input class="choixBox" type="text" name="Choix1" placeholder="Tapez le choix 1">
+
+                </li>
+                <li>
+
+                    <input class="choixBox" type="text" name="Choix2" placeholder="Tapez le choix 2">
+
+                </li>
+                <li>
+
+                    <input class="choixBox" type="text" name="Choix3" placeholder="Tapez le choix 3">
+                </li>
+                <li>
+                    <input class="choixBox" type="text" name="Choix4" placeholder="Tapez le choix 4">
+
+                </li>
+            </ol>
+        </div>
+        <div id="checkEtBouton">
+            <div id="autoriserMultiples">
+                <input type="checkbox" name="check" id="check" /><label for="check">Autoriser les choix multiples</label>
+            </div>
+            <div id="genererBouton">
+                <input type="submit" id="genererLeSondage" value="Générer le sondage" />
+            </div>
+        </div>
+    </form>
+
+
+    
+</body>
+
+</html>

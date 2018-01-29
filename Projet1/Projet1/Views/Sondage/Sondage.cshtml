@@ -1,0 +1,70 @@
+﻿@model Projet1.Models.SondageEtQuestions
+
+/@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../Content/style.css">
+
+</head>
+
+
+<body>
+    <header>
+        <img id="wolf" alt="Loup" src="../../Content/wolf.jpg" />
+        <p id=APLogo>AlphaPoll</p>
+
+    </header>
+
+
+
+    <div id="question2">
+        
+        <input id="questionBox" type="text" value="@Model.Question" readonly>
+        
+    </div>
+
+    <p id="choisissezReponse"> Choisissez une ou plusieurs réponses :</p>
+
+    <div id="sectionChoixReponse">
+        @foreach (string afficherChoixDansSondage in Model.Choix)
+         {
+        <input type="checkbox" id="Choix" name="Choix" class="choixCheck">
+        <label for="Choix1"><input type="text" value="@afficherChoixDansSondage" readonly class="choixReponse"></label>
+        <br>
+
+         }
+        <!--<input type="checkbox" id="Choix1" name="Choix1" class="choixCheck">
+        <label for="Choix1"><input type="text" value="Model.Choix1" readonly class="choixReponse"></label>
+        <br>
+        <input type="checkbox" id="Choix2" name="Choix2" class="choixCheck">
+        <label for="Choix2"><input type="text" value="Model.Choix2" readonly class="choixReponse"> </label>
+        <br>
+
+        <input type="checkbox" id="Choix3" name="Choix" class="choixCheck">
+        <label for="Choix3"><input type="text" value="Model.Choix3" readonly class="choixReponse"></label>
+        <br>
+        <input type="checkbox" id="Choix4" name="Choix4" class="choixCheck">
+        <label for="Choix4"><input type="text" value="Model.Choix4" readonly class="choixReponse"></label>
+        <br>-->
+    </div>
+
+    <div id=boutonsVoterEtResultats>
+        <input type="button" name="Voter" value="Voter" class="boutonTypique" onclick="self.location.href='Vote.html'">
+
+
+
+        <input type="button" name="VoirResultat" value="Voir les résultats" class="boutonTypique" onclick="self.location.href='Resultat.html'">
+    </div>
+
+
+
+
+
+</body>
+</html>
