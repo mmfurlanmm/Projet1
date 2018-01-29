@@ -19,7 +19,7 @@ namespace Projet1.Controllers
         
         
         
-        //Mise en place d'un nouveau sondage. Dans cette vue, l'utilisateur peut voter et soumettre son vote
+        //Mise en place d'un nouveau sondage. Dans la vue associée, l'utilisateur peut voter et soumettre son vote
         public ActionResult Sondage(string question, string choix1, string choix2, string choix3, string choix4)
         {
             SondageEtQuestions NouveauSondage = new SondageEtQuestions();
@@ -32,18 +32,40 @@ namespace Projet1.Controllers
                 if(!string.IsNullOrEmpty(insererDansListe))
                 {
                     NouveauSondage.Choix.Add(insererDansListe);
-
                 }
                 
             }
           
+            SauvegarderEnBDD(NouveauSondage); //Appel de la méthode permettant de sauvegarder dans la BDD
 
-            // SauvegarderEnBDD(NouveauSondage); //Appel de la méthode permettant de sauvegarder dans la BDD
+            RecupererDansBDD();
+
+
+
+            HttpCookie MyCookie = new HttpCookie("LastVisit");
+            MyCookie.Value = "la Valeur du cookie";
+
+            Response.Cookies.Add(MyCookie);
+
+
+
+
 
             return View(NouveauSondage);
         }
 
-        /*private const string SqlConnectionString =
+
+
+
+        
+        
+
+
+
+
+
+
+        private const string SqlConnectionString =
             @"Server=.\SQLExpress;Initial Catalog=SondageBDD; Trusted_Connection=Yes";
 
         
@@ -65,32 +87,45 @@ namespace Projet1.Controllers
                 @"SELECT MAX(IdSondage) FROM Sondage", connexion);
             int dernierID = (int)getID.ExecuteScalar();
 
-            SqlCommand insertChoixPossibles1 = new SqlCommand(
+            //Insertion des choix dans la base de données avec une boucle
+            foreach (string choixASauvegarder in sondageASauvegarder.Choix)
+            {
+                SqlCommand insertChoixPossibles1 = new SqlCommand(
                 @"INSERT INTO ChoixPossibles (IntituleChoix, FkIdSondage) VALUES (@choix, @fk)", connexion);
-            insertChoixPossibles1.Parameters.AddWithValue("@choix", sondageASauvegarder.Choix1);
-            insertChoixPossibles1.Parameters.AddWithValue("@fk", dernierID);
-            insertChoixPossibles1.ExecuteNonQuery();
-
-            SqlCommand insertChoixPossibles2 = new SqlCommand(
-                @"INSERT INTO ChoixPossibles (IntituleChoix, FkIdSondage) VALUES (@choix, @fk)", connexion);
-            insertChoixPossibles2.Parameters.AddWithValue("@choix", sondageASauvegarder.Choix2);
-            insertChoixPossibles2.Parameters.AddWithValue("@fk", dernierID);
-            insertChoixPossibles2.ExecuteNonQuery();
-
-            SqlCommand insertChoixPossibles3 = new SqlCommand(
-                @"INSERT INTO ChoixPossibles (IntituleChoix, FkIdSondage) VALUES (@choix, @fk)", connexion);
-            insertChoixPossibles3.Parameters.AddWithValue("@choix", sondageASauvegarder.Choix3);
-            insertChoixPossibles3.Parameters.AddWithValue("@fk", dernierID);
-            insertChoixPossibles3.ExecuteNonQuery();
-
-            SqlCommand insertChoixPossibles4 = new SqlCommand(
-                @"INSERT INTO ChoixPossibles (IntituleChoix, FkIdSondage) VALUES (@choix, @fk)", connexion);
-            insertChoixPossibles4.Parameters.AddWithValue("@choix", sondageASauvegarder.Choix4);
-            insertChoixPossibles4.Parameters.AddWithValue("@fk", dernierID);
-            insertChoixPossibles4.ExecuteNonQuery();
-
+                insertChoixPossibles1.Parameters.AddWithValue("@choix", choixASauvegarder);
+                insertChoixPossibles1.Parameters.AddWithValue("@fk", dernierID);
+                insertChoixPossibles1.ExecuteNonQuery();
+            }
+                       
             connexion.Close();
 
-        }*/
+        }
+
+        static List<string> RecupererDansBDD()
+        {
+            SqlConnection connexion = new SqlConnection(SqlConnectionString);
+            connexion.Open();
+
+            SqlCommand getID = new SqlCommand(
+                @"SELECT MAX(IdSondage) FROM Sondage", connexion);
+            int dernierID = (int)getID.ExecuteScalar();
+
+            SqlCommand getBDD = new SqlCommand(
+            @"SELECT IntituleChoix FROM ChoixPossibles WHERE FkIdSondage=@dernierId", connexion);
+            getBDD.Parameters.AddWithValue("@dernierId", dernierID);
+            SqlDataReader reader = getBDD.ExecuteReader();
+            List<string> choixDansBDD = new List<string>();
+            
+
+            while (reader.Read())
+            {
+                choixDansBDD.Add((string)reader["IntituleChoix"]);
+            }
+                        
+            
+            connexion.Close();
+
+            return choixDansBDD;
+        }
     }
 }
