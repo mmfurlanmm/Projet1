@@ -19,60 +19,43 @@ namespace Projet1.Controllers
         
         
         
-        //Mise en place d'un nouveau sondage. Dans la vue associée, l'utilisateur peut voter et soumettre son vote
-        public ActionResult Sondage(string question, string choix1, string choix2, string choix3, string choix4)
+        //Enregistrement d'un sondage dans la BDD
+        public ActionResult SondageCree(string question, List<string> Choix)
         {
-            SondageEtQuestions NouveauSondage = new SondageEtQuestions();
-            NouveauSondage.Question = question;
-            NouveauSondage.Choix = new List<string>();
 
-            List<string> recupererChoix = new List<string> { choix1, choix2, choix3, choix4 };
-            foreach(string insererDansListe in recupererChoix)
-            {
-                if(!string.IsNullOrEmpty(insererDansListe))
-                {
-                    NouveauSondage.Choix.Add(insererDansListe);
-                }
-                
-            }
-          
+            Choix.RemoveAll(string.IsNullOrEmpty);
+            QuestionEtChoix NouveauSondage = new QuestionEtChoix(question, Choix);
+                    
             SauvegarderEnBDD(NouveauSondage); //Appel de la méthode permettant de sauvegarder dans la BDD
 
-            RecupererDansBDD();
-
-
-
+           
+            /*
             HttpCookie MyCookie = new HttpCookie("LastVisit");
             MyCookie.Value = "la Valeur du cookie";
 
-            Response.Cookies.Add(MyCookie);
+            Response.Cookies.Add(MyCookie);*/
 
 
+            return View("SondageCree");
 
 
-
-            return View(NouveauSondage);
+          
         }
 
-
-
-
-        
-        
-
-
-
-
+        public ActionResult Sondage()
+        {
+            QuestionEtChoix SondageBDD = new QuestionEtChoix(RecupererDansBDD().Question, RecupererDansBDD().Choix);
+            
+            return View(SondageBDD);
+        }
 
 
         private const string SqlConnectionString =
             @"Server=.\SQLExpress;Initial Catalog=SondageBDD; Trusted_Connection=Yes";
-
-        
         
         
         //Méthode permettant de sauvegarder la question et les choix dans leur BDD respective
-        static void SauvegarderEnBDD(SondageEtQuestions sondageASauvegarder)
+        static void SauvegarderEnBDD(QuestionEtChoix sondageASauvegarder)
         {
             SqlConnection connexion = new SqlConnection(SqlConnectionString);
             connexion.Open();
@@ -101,7 +84,8 @@ namespace Projet1.Controllers
 
         }
 
-        static List<string> RecupererDansBDD()
+        //Récupération du sondage dans les bases de données
+        static QuestionEtChoix RecupererDansBDD()
         {
             SqlConnection connexion = new SqlConnection(SqlConnectionString);
             connexion.Open();
@@ -110,22 +94,30 @@ namespace Projet1.Controllers
                 @"SELECT MAX(IdSondage) FROM Sondage", connexion);
             int dernierID = (int)getID.ExecuteScalar();
 
-            SqlCommand getBDD = new SqlCommand(
+            SqlCommand getQuestion = new SqlCommand(
+                @"SELECT Question FROM Sondage WHERE IdSondage = @dernierId", connexion);
+            getQuestion.Parameters.AddWithValue("@dernierId", dernierID);
+            string questionBDD= (string)getQuestion.ExecuteScalar();
+
+            SqlCommand getChoix = new SqlCommand(
             @"SELECT IntituleChoix FROM ChoixPossibles WHERE FkIdSondage=@dernierId", connexion);
-            getBDD.Parameters.AddWithValue("@dernierId", dernierID);
-            SqlDataReader reader = getBDD.ExecuteReader();
-            List<string> choixDansBDD = new List<string>();
+            getChoix.Parameters.AddWithValue("@dernierId", dernierID);
+            SqlDataReader reader = getChoix.ExecuteReader();
+            List<string> ChoixDansBDD = new List<string>();
             
 
             while (reader.Read())
             {
-                choixDansBDD.Add((string)reader["IntituleChoix"]);
+                ChoixDansBDD.Add((string)reader["IntituleChoix"]);
             }
+
+            QuestionEtChoix QuestionEtChoixBDD = new QuestionEtChoix(questionBDD, ChoixDansBDD);
+            
                         
             
             connexion.Close();
 
-            return choixDansBDD;
+            return QuestionEtChoixBDD;
         }
     }
 }
