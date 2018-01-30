@@ -36,19 +36,18 @@ namespace Projet1.Controllers
             SqlConnection connexion = new SqlConnection(SqlConnectionString);
             connexion.Open();
 
-
+            // Génération du cookie
             SqlCommand getID = new SqlCommand(
                 @"SELECT MAX(IdSondage) FROM Sondage", connexion);
+            
             int dernierID = (int)getID.ExecuteScalar();
 
             string dernierIdStr = dernierID.ToString();
 
-
-            HttpCookie MyCookie = new HttpCookie("LastVisit");
-            MyCookie.Value = dernierIdStr; // "la Valeur du cookie";
+            HttpCookie MyCookie = new HttpCookie("VoteSondage");
+            MyCookie.Value = dernierIdStr;
 
             Response.Cookies.Add(MyCookie);
-
 
             connexion.Close();
 
