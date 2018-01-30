@@ -10,6 +10,10 @@ namespace Projet1.Controllers
 {
     public class SondageController : Controller
     {
+
+
+        private const string SqlConnectionString =
+           @"Server=.\SQLExpress;Initial Catalog=SondageBDD; Trusted_Connection=Yes";
         // Afficher la vue de création d'un sondage
         public ActionResult CreerSondage()
         {
@@ -28,30 +32,48 @@ namespace Projet1.Controllers
                     
             SauvegarderEnBDD(NouveauSondage); //Appel de la méthode permettant de sauvegarder dans la BDD
 
-           
-            /*
+
+            SqlConnection connexion = new SqlConnection(SqlConnectionString);
+            connexion.Open();
+
+
+            SqlCommand getID = new SqlCommand(
+                @"SELECT MAX(IdSondage) FROM Sondage", connexion);
+            int dernierID = (int)getID.ExecuteScalar();
+
+            string dernierIdStr = dernierID.ToString();
+
+
             HttpCookie MyCookie = new HttpCookie("LastVisit");
-            MyCookie.Value = "la Valeur du cookie";
+            MyCookie.Value = dernierIdStr; // "la Valeur du cookie";
 
-            Response.Cookies.Add(MyCookie);*/
+            Response.Cookies.Add(MyCookie);
 
+
+            connexion.Close();
 
             return View("SondageCree");
 
-
+            
           
         }
 
         public ActionResult Sondage()
         {
             QuestionEtChoix SondageBDD = new QuestionEtChoix(RecupererDansBDD().Question, RecupererDansBDD().Choix);
-            
+
+
+            /*
+           HttpCookie MyCookie = new HttpCookie("LastVisit");
+           MyCookie.Value = "la Valeur du cookie";
+
+           Response.Cookies.Add(MyCookie);*/
+
             return View(SondageBDD);
         }
 
 
-        private const string SqlConnectionString =
-            @"Server=.\SQLExpress;Initial Catalog=SondageBDD; Trusted_Connection=Yes";
+       
         
         
         //Méthode permettant de sauvegarder la question et les choix dans leur BDD respective
