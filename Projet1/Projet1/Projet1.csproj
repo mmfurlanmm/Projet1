@@ -102,7 +102,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ChoixPossibles.cs" />
-    <Compile Include="Models\SondageEtQuestions.cs" />
+    <Compile Include="Models\QuestionEtChoix.cs" />
     <Compile Include="Models\Sondage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
