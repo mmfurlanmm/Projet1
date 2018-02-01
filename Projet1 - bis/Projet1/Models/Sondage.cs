@@ -24,4 +24,10 @@ namespace Projet1.Models
         }
 
     }
+    public class RecupererChoix
+    {
+        public bool isChecked { get; set; }
+
+    }
+
 }
