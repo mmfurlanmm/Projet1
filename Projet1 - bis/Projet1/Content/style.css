@@ -269,6 +269,29 @@ li{
     margin-top: 70px;
 }
 
+/*Page Résultats*/
+
+#boutonSection3 {
+    padding-top: 50px;
+    text-align: center;
+}
+
+#sectionChoixReponseResultats {
+    padding-top: 40px;
+    margin-left: 13%;
+    font-size : 22px;
+}
+
+#barre {
+    width: 60%;
+    background-color: lightgrey;
+    border: none;
+    height: 25px;
+    
+
+
+}
+
 
 
 

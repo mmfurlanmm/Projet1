@@ -101,7 +101,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ChoixPossibles.cs" />
+    <Compile Include="Models\ResultatsSondage.cs" />
     <Compile Include="Models\QuestionEtChoix.cs" />
     <Compile Include="Models\Sondage.cs" />
     <Compile Include="Models\SQL.cs" />

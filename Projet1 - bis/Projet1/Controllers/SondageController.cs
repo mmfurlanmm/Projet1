@@ -29,9 +29,10 @@ namespace Projet1.Controllers
             Choix.RemoveAll(string.IsNullOrEmpty);
             Sondage NouveauSondage = new Sondage(question, Choix, choixMultiple);
                                 
-            SQL.SauvegarderEnBDD(NouveauSondage); //Appel de la méthode permettant de sauvegarder dans la BDD
+            ViewBag.dernierIDBDD = SQL.SauvegarderEnBDD(NouveauSondage); //Appel de la méthode permettant de sauvegarder dans la BDD
+                                                                              //et récupération du dernier ID du sondage
 
-           
+
             /*
             HttpCookie MyCookie = new HttpCookie("LastVisit");
             MyCookie.Value = "la Valeur du cookie";
@@ -45,38 +46,41 @@ namespace Projet1.Controllers
           
         }
 
-        public ActionResult Sondage()
+        public ActionResult Sondage(int Id)
         {
-            Sondage SondageBDD = new Sondage(SQL.RecupererDansBDD().Question, SQL.RecupererDansBDD().Choix, SQL.RecupererDansBDD().ChoixMultiple);
             
-            return View(SondageBDD);
+            QuestionEtChoix QuestionEtChoixBDD = SQL.GetQuestionEtChoix(Id);
+
+            return View("Sondage", QuestionEtChoixBDD);
         }
 
 
 
-        public ActionResult Voter(List<string> Choix)
+        public ActionResult Voter(int idSondage, List<int> ChoixSondage)
         {
-            List<bool> CheckedOuPas = new List<bool>();
-            bool boolCheckedOuPas = Convert.ToBoolean(Request.Form["Choix"]);
+            SQL.Voter(idSondage, ChoixSondage);
+            
+            ViewBag.idSondage = idSondage;
+            
             
 
-            foreach (string getCheckedOuPas in Choix)
+            return View("Vote");
+        }
+
+        public ActionResult Resultats(int idSondage)
+        {
+            ResultatsSondage ResultatsBDD = SQL.GetResultats(idSondage);
+
+            int nbDeVotesTotal = 0;
+
+            foreach (int nb in ResultatsBDD.NbDeVotantsParChoix)
             {
-                if (getCheckedOuPas == "true")
-                {
-                    boolCheckedOuPas = true;
-                    CheckedOuPas.Add(boolCheckedOuPas);
-                }
-                else
-                {
-                    boolCheckedOuPas = false;
-                    CheckedOuPas.Add(boolCheckedOuPas);
-
-                }
-
+                nbDeVotesTotal+= nb;
             }
 
-            return View("Vote");
+            ViewBag.nbDeVotesTotal = nbDeVotesTotal;
+
+            return View("Resultat", ResultatsBDD);
         }
 
 

@@ -1,4 +1,4 @@
-﻿
+﻿@model Projet1.Models.ResultatsSondage
 @{
     Layout = null;
 }
@@ -21,39 +21,35 @@
     </header>
 
 
-    <p> Votre question </p>
+    <div id="question2">
+
+        <input id="questionBox" type="text" value="@Model.question" readonly />
 
 
+    </div>
 
 
+    @{ int i = 0;
+        foreach (string choix in Model.IntituleChoix)
+        {
+            <div id="sectionChoixReponseResultats">
+                @choix <br />
+
+                <progress id="barre" value=@Model.NbDeVotantsParChoix[i] max=@ViewBag.nbDeVotesTotal></progress>
+                @Model.NbDeVotantsParChoix[i] 
+                @{i++;}
+            </div>
+
+        }
+
+    }
 
 
-    <textarea rows="1" cols="20">
-        Choix 1
-    </textarea> <br />
-    <progress value="70" max="100"></progress> <br />
-
-    <textarea rows="1" cols="20">
-        Choix 2
-    </textarea> <br />
-    <progress value="50" max="100"></progress> <br />
-
-    <textarea rows="1" cols="20">
-        Choix 3
-    </textarea> <br />
-    <progress value="35" max="100"></progress> <br />
-
-    <textarea rows="1" cols="20">
-        Choix 4
-    </textarea> <br />
-    <progress value="7" max="100"></progress> <br />
-
-    <br />
 
 
 
     <div id="boutonSection3">
-        <input type="button" id="RetourIndex" value="Retour à l'accueil" onclick="self.location.href='Index.html'">
+        <input type="button" value="Retour à l'accueil" class="boutonTypique" onclick="self.location.href='/Home/Index'">
     </div>
 
 
