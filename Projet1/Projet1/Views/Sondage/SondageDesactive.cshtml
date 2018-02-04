@@ -1,0 +1,50 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sondage désactivé</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../Content/style.css">
+
+</head>
+
+
+<body>
+    <header>
+        <img id="wolf" alt="Loup" src="../../Content/wolf.jpg" />
+        <p id=APLogo>AlphaPoll</p>
+
+    </header>
+
+
+
+
+
+
+
+    <h1>Ce sondage a été désactivé... pour toujours... </h1>
+    <h1 id="votreVote">Vous pouvez quand même consulter les résultats, on n'est pas comme ça !</h1>
+
+
+
+
+    <div id="voirResultatsEtAccueil">
+
+
+        <input type="button" name="VoirResultat" value="Voir les résultats" id="voirResultats" class="boutonWide" onclick="self.location.href='/Sondage/Resultats?Id=@ViewBag.idSondage'">
+
+        <br />
+
+        <input type="button" name="RetourIndex" value="Retour à l'accueil" id="retourAccueil" class="boutonWide" onclick="self.location.href='/Home/Index'">
+    </div>
+
+
+
+
+
+</body>
+</html>

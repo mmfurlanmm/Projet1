@@ -1,0 +1,50 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Vous avez déjà voté !!!</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../Content/style.css">
+
+</head>
+
+
+<body>
+    <header>
+        <img id="wolf" alt="Loup" src="../../Content/wolf.jpg" />
+        <p id=APLogo>AlphaPoll</p>
+
+    </header>
+
+
+
+
+
+
+
+    <h1>Hep hep hep !! Vous avez déjà voté, vous ! </h1>
+    
+
+
+
+
+    <div id="voirResultatsEtAccueil">
+
+
+        <input type="button" name="VoirResultat" value="Voir les résultats" id="voirResultats" class="boutonWide" onclick="self.location.href='/Sondage/Resultats?Id=@ViewBag.idSondage'">
+
+        <br />
+
+        <input type="button" name="RetourIndex" value="Retour à l'accueil" id="retourAccueil" class="boutonWide" onclick="self.location.href='/Home/Index'">
+    </div>
+
+
+
+
+
+</body>
+</html>

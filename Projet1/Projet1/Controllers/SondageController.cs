@@ -10,135 +10,128 @@ namespace Projet1.Controllers
 {
     public class SondageController : Controller
     {
-
-
-        private const string SqlConnectionString =
-           @"Server=.\SQLExpress;Initial Catalog=SondageBDD; Trusted_Connection=Yes";
         // Afficher la vue de création d'un sondage
         public ActionResult CreerSondage()
         {
             return View("CreerSondage");
         }
 
-        
-        
-        
+
         //Enregistrement d'un sondage dans la BDD
-        public ActionResult SondageCree(string question, List<string> Choix)
+        public ActionResult SondageCree(string question, List<string> Choix, string check)
         {
 
-            Choix.RemoveAll(string.IsNullOrEmpty);
-            QuestionEtChoix NouveauSondage = new QuestionEtChoix(question, Choix);
-                    
-            SauvegarderEnBDD(NouveauSondage); //Appel de la méthode permettant de sauvegarder dans la BDD
+            int choixVide = 0;
 
-
-            SqlConnection connexion = new SqlConnection(SqlConnectionString);
-            connexion.Open();
-
-            // Génération du cookie
-            SqlCommand getID = new SqlCommand(
-                @"SELECT MAX(IdSondage) FROM Sondage", connexion);
-            
-            int dernierID = (int)getID.ExecuteScalar();
-
-            string dernierIdStr = dernierID.ToString();
-
-            HttpCookie MyCookie = new HttpCookie("VoteSondage");
-            MyCookie.Value = dernierIdStr;
-
-            Response.Cookies.Add(MyCookie);
-
-            connexion.Close();
-
-            return View("SondageCree");
-
-            
-          
-        }
-
-        public ActionResult Sondage()
-        {
-            QuestionEtChoix SondageBDD = new QuestionEtChoix(RecupererDansBDD().Question, RecupererDansBDD().Choix);
-
-
-            /*
-           HttpCookie MyCookie = new HttpCookie("LastVisit");
-           MyCookie.Value = "la Valeur du cookie";
-
-           Response.Cookies.Add(MyCookie);*/
-
-            return View(SondageBDD);
-        }
-
-
-       
-        
-        
-        //Méthode permettant de sauvegarder la question et les choix dans leur BDD respective
-        static void SauvegarderEnBDD(QuestionEtChoix sondageASauvegarder)
-        {
-            SqlConnection connexion = new SqlConnection(SqlConnectionString);
-            connexion.Open();
-
-            SqlCommand insertSondage = new SqlCommand(
-                @"INSERT INTO Sondage(Question) VALUES (@question)", connexion);
-            insertSondage.Parameters.AddWithValue("@question", sondageASauvegarder.Question);
-            insertSondage.ExecuteNonQuery();
-
-            //Récupération de l'ID correspondant à la question. Il est utilisé pour la clé étrangère de la table ChoixPossibles
-            SqlCommand getID = new SqlCommand(
-                @"SELECT MAX(IdSondage) FROM Sondage", connexion);
-            int dernierID = (int)getID.ExecuteScalar();
-
-            //Insertion des choix dans la base de données avec une boucle
-            foreach (string choixASauvegarder in sondageASauvegarder.Choix)
+            for (int i = 0; i < Choix.Count; i++)
             {
-                SqlCommand insertChoixPossibles1 = new SqlCommand(
-                @"INSERT INTO ChoixPossibles (IntituleChoix, FkIdSondage) VALUES (@choix, @fk)", connexion);
-                insertChoixPossibles1.Parameters.AddWithValue("@choix", choixASauvegarder);
-                insertChoixPossibles1.Parameters.AddWithValue("@fk", dernierID);
-                insertChoixPossibles1.ExecuteNonQuery();
-            }
-                       
-            connexion.Close();
-
-        }
-
-        //Récupération du sondage dans les bases de données
-        static QuestionEtChoix RecupererDansBDD()
-        {
-            SqlConnection connexion = new SqlConnection(SqlConnectionString);
-            connexion.Open();
-
-            SqlCommand getID = new SqlCommand(
-                @"SELECT MAX(IdSondage) FROM Sondage", connexion);
-            int dernierID = (int)getID.ExecuteScalar();
-
-            SqlCommand getQuestion = new SqlCommand(
-                @"SELECT Question FROM Sondage WHERE IdSondage = @dernierId", connexion);
-            getQuestion.Parameters.AddWithValue("@dernierId", dernierID);
-            string questionBDD= (string)getQuestion.ExecuteScalar();
-
-            SqlCommand getChoix = new SqlCommand(
-            @"SELECT IntituleChoix FROM ChoixPossibles WHERE FkIdSondage=@dernierId", connexion);
-            getChoix.Parameters.AddWithValue("@dernierId", dernierID);
-            SqlDataReader reader = getChoix.ExecuteReader();
-            List<string> ChoixDansBDD = new List<string>();
-            
-
-            while (reader.Read())
-            {
-                ChoixDansBDD.Add((string)reader["IntituleChoix"]);
+                if (Choix[i] == "")
+                {
+                    choixVide++;
+                }
             }
 
-            QuestionEtChoix QuestionEtChoixBDD = new QuestionEtChoix(questionBDD, ChoixDansBDD);
-            
-                        
-            
-            connexion.Close();
 
-            return QuestionEtChoixBDD;
+            if (question == ""||choixVide>2)
+            {
+                return View("NbQuestionEtChoixMin");
+            }
+            else
+            {
+
+
+                bool choixMultiple;
+                if (check == "checked")
+                { choixMultiple = true; }
+                else choixMultiple = false;
+
+
+                Choix.RemoveAll(string.IsNullOrEmpty);
+                Sondage NouveauSondage = new Sondage(question, Choix, choixMultiple);
+
+                ViewBag.dernierIDBDD = SQL.SauvegarderEnBDD(NouveauSondage); //Appel de la méthode permettant de sauvegarder le sondage dans la BDD
+                                                                             //et récupération du dernier ID du sondage
+                Guid cleDesactivation = Guid.NewGuid();
+                cleDesactivation.ToString();
+
+                ViewBag.cleDesactivation = cleDesactivation;
+
+
+                return View("SondageCree");
+            }
+
         }
+
+        public ActionResult Sondage(int Id)
+        {
+            ViewBag.idSondage = Id;
+
+            QuestionEtChoix QuestionEtChoixBDD = SQL.GetQuestionEtChoix(Id);
+            if (QuestionEtChoixBDD.sondageActif == true)
+            {
+                return View("Sondage", QuestionEtChoixBDD);
+            }
+            else
+            {
+                return View("SondageDesactive");
+            }
+
+        }
+
+
+
+        public ActionResult Voter(int idSondage, List<int> ChoixSondage)
+        {
+            ViewBag.idSondage = idSondage;
+
+            if (ChoixSondage != null)
+            {
+                HttpCookie MyCookie = Request.Cookies[idSondage.ToString()];
+
+                if (MyCookie == null)
+                {
+
+                    MyCookie = new HttpCookie(idSondage.ToString());
+                    //Response.Cookies.Add(MyCookie);
+                    SQL.Voter(idSondage, ChoixSondage);
+                    return View("Vote");
+                }
+                else
+                {
+                    return View("DejaVote");
+                }
+
+
+            }
+            else
+            {
+                return View("Erreur");
+            }
+
+        }
+
+        public ActionResult Resultats(int Id)
+        {
+            ResultatsSondage ResultatsBDD = SQL.GetResultats(Id);
+
+            int nbDeVotesTotal = 0;
+
+            foreach (int nb in ResultatsBDD.NbDeVotantsParChoix)
+            {
+                nbDeVotesTotal += nb;
+            }
+
+            ViewBag.nbDeVotesTotal = nbDeVotesTotal;
+
+            return View("Resultat", ResultatsBDD);
+        }
+
+        public ActionResult SondageDesactive(int Id, string Key)
+        {
+            SQL.DesactivationSondage(Id);
+
+            return View("SondageSupprime");
+        }
+
     }
 }

@@ -1,0 +1,85 @@
+﻿@model Projet1.Models.QuestionEtChoix
+
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Et maintenant, votez !</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../Content/style.css">
+
+</head>
+
+
+<body>
+    <header>
+        <img id="wolf" alt="Loup" src="../../Content/wolf.jpg" />
+        <p id=APLogo>AlphaPoll</p>
+
+    </header>
+
+
+
+    <div id="question2">
+
+        <input id="questionBox2" type="text" value="@Model.Question" readonly />
+
+
+    </div>
+
+
+
+    <form id="sectionChoixReponse" method="post" action="Voter">
+        <input type="hidden" name="idSondage" value="@Model.Idsondage" />
+        @{ int i = 0; //itérateur permettant de parcourir la liste contenant les choix possible. Seuls les choix qui sont cochés seront retournés.
+            if (Model.choixMultiple == true)
+
+            { <div id="sectionChoisissezReponseEtNbVotants">
+                    <p id="choisissezReponse"> Choisissez une ou plusieurs réponses :</p>
+                    <p id="nbVotants">Nombre de votants : @Model.nbVotants</p>
+                </div>
+                foreach (string afficherChoixDansSondage in Model.Choix)
+                {
+                    <input type="checkbox" id="Choix" name="ChoixSondage" class="choixCheck" value=@Model.IdChoix[i] /> i++;
+                    <label for="Choix"><input type="text" value="@afficherChoixDansSondage" readonly class="choixReponse"></label>
+
+                    <br>
+
+                }
+
+            }
+            else
+            {
+                <div id="sectionChoisissezReponseEtNbVotants">
+                    <p id="choisissezReponse"> Choisissez une réponse :</p>
+                    <p id="nbVotants">Nombre de votants : @Model.nbVotants</p>
+                </div>
+                foreach (string afficherChoixDansSondage in Model.Choix)
+                {
+                    <input type="radio" id="Choix" name="ChoixSondage" class="choixCheck" value=@Model.IdChoix[i] /> i++;
+                    <label for="Choix"><input type="text" value="@afficherChoixDansSondage" readonly class="choixReponse"></label>
+                    <br>
+
+                }
+
+            }
+        }
+
+        <div id=boutonsVoterEtResultats>
+            <input type="submit" name="Voter" value="Voter" class="boutonTypique">
+
+
+
+            <input type="button" name="VoirResultat" value="Voir les résultats" class="boutonTypique" onclick="self.location.href='/Sondage/Resultats?Id=@Model.Idsondage'">
+        </div>
+    </form>
+
+
+</body>
+</html>

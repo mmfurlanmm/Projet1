@@ -1,0 +1,44 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Votre sondage a été créé !</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../Content/style.css">
+
+</head>
+
+
+<body>
+    <header>
+        <img id="wolf" alt="Loup" src="../../Content/wolf.jpg" />
+        <p id=APLogo>AlphaPoll</p>
+
+    </header>
+
+
+    <h1 id="votreSondageCree"> Votre sondage a été créé !</h1>
+
+    <h2 id="conservezLesLiens"> Conservez bien les liens ci-dessous :</h2>
+
+
+    <div id="liens">
+        <p class=lien> Accéder au sondage : <a href='/Sondage/Sondage?Id=@ViewBag.dernierIDBDD'>http://localhost:59213/Sondage/Sondage?Id=@ViewBag.dernierIDBDD</a> </p>
+
+        <p class=lien> Résultats du sondage : <a href='/Sondage/Resultats?Id=@ViewBag.dernierIDBDD'>http://localhost:59213/Sondage/Resultats?Id=@ViewBag.dernierIDBDD</a> </p>
+
+        <p class=lien> Désactivation du sondage : <a href="/Sondage/SondageDesactive?Id=@ViewBag.dernierIDBDD&?key=@ViewBag.cleDesactivation">http://localhost:59213/Sondage/SondageDesactive?Id=@ViewBag.dernierIDBDD&?key=@ViewBag.cleDesactivation</a> </p>
+    </div>
+
+
+
+
+</body>
+
+
+</html>
