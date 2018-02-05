@@ -121,6 +121,15 @@ namespace Projet1.Controllers
         public ActionResult Resultats(int Id)
         {
             ResultatsSondage ResultatsBDD = SQL.GetResultats(Id);
+
+            int nbDeVoixTotal = 0;
+            
+            foreach(int nb in ResultatsBDD.NbDeVotantsParChoix)
+            {
+                nbDeVoixTotal += nb;
+                
+            }
+            ViewBag.nbDeVoixTotal = nbDeVoixTotal; 
                         
             return View("Resultat", ResultatsBDD);
         }

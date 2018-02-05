@@ -309,9 +309,14 @@ li{
     height: 25px;
     
 }
+#nbDeVotantsResultats {
+    margin-right: 13%;
+    font-size: 22px;
+    text-align : right;
+}
+
 
 /*Page Erreur*/
-
 #erreurBody {
     background-color: black;
 }

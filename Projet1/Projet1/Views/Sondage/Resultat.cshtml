@@ -24,7 +24,8 @@
 
     <div id="question2">
 
-        <input id="questionBox2" type="text" value="@Model.question" readonly />
+        <input id="questionBox2" type="text" value="@Model.question" readonly /><br />
+        <p id="nbDeVotantsResultats">Nombre de votants : @Model.nbDeVotantsTotal</p>
 
 
     </div>
@@ -36,9 +37,9 @@
             <div id="sectionChoixReponseResultats">
                 @choix <br />
 
-                <progress id="barre" value=@Model.NbDeVotantsParChoix[i] max=@Model.nbDeVotantsTotal></progress>
-                @Model.NbDeVotantsParChoix[i] 
-                @{i++;}
+                <progress id="barre" value=@Model.NbDeVotantsParChoix[i] max=@ViewBag.nbDeVoixTotal></progress>
+                @Model.NbDeVotantsParChoix[i]
+                @{ i++;}
             </div>
 
         }
