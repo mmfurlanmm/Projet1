@@ -10,7 +10,7 @@ namespace Projet1.Models
     public class SQL
     {
         private const string SqlConnectionString =
-            @"Server=.\SQLExpress;Initial Catalog=SondageBDD; Trusted_Connection=Yes";
+            @"Server=172.19.240.3;Initial Catalog=SondageBDD; Trusted_Connection=Yes";
         private static SqlConnection connexion = new SqlConnection(SqlConnectionString);
 
 
@@ -22,9 +22,10 @@ namespace Projet1.Models
 
             //On entre la question dans la BDD et on en profite pour récupérer l'ID du sondage grâce à SCOPE_IDENTITY()
             SqlCommand insertSondage = new SqlCommand(
-                @"INSERT INTO Sondage(Question, ChoixMultiple) VALUES (@question, @choixMultiple);
-                SELECT CAST(SCOPE_IDENTITY() as int);", connexion); //Le CAST() est nécessaire pour que l'ID soit récupéré dans le bon type (conversion de NUMERIC vers INT)
+                @"INSERT INTO Sondage(Question, ChoixMultiple, LienSuppression) VALUES (@question, @choixMultiple, @lienSuppression);
+                SELECT CAST(SCOPE_IDENTITY() as int);", connexion); //Le CAST() est nécessaire pour que l'ID soit récupéré dans le bon type (conversion de NUMERIC du SQL vers INT)
             insertSondage.Parameters.AddWithValue("@question", sondageASauvegarder.Question);
+            insertSondage.Parameters.AddWithValue("@lienSuppression", sondageASauvegarder.LienSuppression);
             insertSondage.Parameters.AddWithValue("@choixMultiple", sondageASauvegarder.ChoixMultiple);
 
             int dernierID = (int)insertSondage.ExecuteScalar();
@@ -32,7 +33,7 @@ namespace Projet1.Models
             connexion.Close();
 
             connexion.Open();
-            
+
             //Insertion des choix dans la base de données avec une boucle
             foreach (string choixASauvegarder in sondageASauvegarder.Choix)
             {
@@ -40,6 +41,7 @@ namespace Projet1.Models
                 @"INSERT INTO ChoixPossibles (IntituleChoix, FkIdSondage) VALUES (@choix, @fk)", connexion);
                 insertChoixPossibles.Parameters.AddWithValue("@choix", choixASauvegarder);
                 insertChoixPossibles.Parameters.AddWithValue("@fk", dernierID);
+
                 insertChoixPossibles.ExecuteNonQuery();
             }
 
@@ -47,16 +49,18 @@ namespace Projet1.Models
 
             connexion.Open();
 
+            //On initialise le nombre de votants à 0 car on ne peut pas incrémenter une valeur nulle
             SqlCommand setAZero = new SqlCommand(
             @"UPDATE ChoixPossibles SET NbVotantsParChoix = 0 WHERE FkIdSondage = @dernierId
               UPDATE Sondage SET NbVotants = 0 WHERE IdSondage = @dernierId", connexion);
             setAZero.Parameters.AddWithValue("@dernierID", dernierID);
             setAZero.ExecuteNonQuery();
-            
+
             connexion.Close();
 
             connexion.Open();
 
+            //Tout sondage créé est initialé comme actif grace a un booleen 
             SqlCommand sondageActive = new SqlCommand(
             @"UPDATE Sondage SET SondageActif = 1 WHERE IdSondage = @dernierId", connexion);
             sondageActive.Parameters.AddWithValue("@dernierID", dernierID);
@@ -65,12 +69,9 @@ namespace Projet1.Models
             connexion.Close();
 
             return dernierID;
-            
+
         }
-
-
-
-
+        
         public static QuestionEtChoix GetQuestionEtChoix(int Id)
         {
             connexion.Open();
@@ -152,6 +153,7 @@ namespace Projet1.Models
 
             connexion.Close();
 
+            //On envoie les données prélévées dans la BDD vers le modèle QuestionEtChoix
             QuestionEtChoix QuestionEtChoixBDD = new QuestionEtChoix(question, LIntituleChoix, LIdChoix, IdSondageBDD, choixMultipleBDD, sondageActifBDD, nbVotantsBDD);
 
             return QuestionEtChoixBDD;
@@ -161,6 +163,8 @@ namespace Projet1.Models
         public static void Voter(int idSondage, List<int> IdChoix)
         {
             connexion.Open();
+
+            //Incrémentation du nombre de votants lorsque l'utilisateur vote
             SqlCommand IncrementerNbVotant = new SqlCommand(
                 @"UPDATE Sondage SET NbVotants = NbVotants+1
                                        WHERE IdSondage = @idSondage", connexion);
@@ -171,7 +175,6 @@ namespace Projet1.Models
 
             connexion.Open();
             
-
             foreach (int choixDansListe in IdChoix)
             {
                 SqlCommand IncrementerNbVotantParChoix = new SqlCommand(
@@ -183,7 +186,6 @@ namespace Projet1.Models
 
             }
             
-
             connexion.Close();
         }
 
@@ -259,6 +261,18 @@ namespace Projet1.Models
 
         }
 
+        public static string VerificationCleDesactivation(int id, string key)
+        {
+            connexion.Open();
 
+            SqlCommand recuperationCleDesactivation = new SqlCommand(
+            @"SELECT LienSuppression FROM Sondage WHERE IdSondage = @Id", connexion);
+            recuperationCleDesactivation.Parameters.AddWithValue("@Id", id);
+            string keyBDD = (string)recuperationCleDesactivation.ExecuteScalar();
+
+            connexion.Close();
+
+            return keyBDD;
+        }
     }
 }

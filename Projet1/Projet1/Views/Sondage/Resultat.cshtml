@@ -29,14 +29,14 @@
 
     </div>
 
-
+     <!--Affiche les resultats du sondage, les choix ainsi que le nombre de votant par choix-->
     @{ int i = 0;
         foreach (string choix in Model.IntituleChoix)
         {
             <div id="sectionChoixReponseResultats">
                 @choix <br />
 
-                <progress id="barre" value=@Model.NbDeVotantsParChoix[i] max=@ViewBag.nbDeVotesTotal></progress>
+                <progress id="barre" value=@Model.NbDeVotantsParChoix[i] max=@Model.nbDeVotantsTotal></progress>
                 @Model.NbDeVotantsParChoix[i] 
                 @{i++;}
             </div>

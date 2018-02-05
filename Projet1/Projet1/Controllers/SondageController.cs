@@ -10,7 +10,7 @@ namespace Projet1.Controllers
 {
     public class SondageController : Controller
     {
-        // Afficher la vue de création d'un sondage
+        //Afficher la vue de création d'un sondage
         public ActionResult CreerSondage()
         {
             return View("CreerSondage");
@@ -21,6 +21,11 @@ namespace Projet1.Controllers
         public ActionResult SondageCree(string question, List<string> Choix, string check)
         {
 
+            //Les choix vides sont effacés de la liste "Choix" avant qu'elle ne soit enregistrée dans la BDD
+            Choix.RemoveAll(string.IsNullOrEmpty);
+
+            //Le FOR et le IF suivants empêchent la création d'un sondage 
+            //si le champ "QUESTION" est vide ou si l'utilisateur n'entre pas au moins 2 choix
             int choixVide = 0;
 
             for (int i = 0; i < Choix.Count; i++)
@@ -34,25 +39,27 @@ namespace Projet1.Controllers
 
             if (question == ""||choixVide>2)
             {
-                return View("NbQuestionEtChoixMin");
-            }
+                return View("NbQuestionEtChoixMin"); //Si les conditions précédentes ne sont pas remplies, 
+            }                                        //l'utilisateur est renvoyé vers une page d'erreur
             else
             {
 
-
+                //Vérifie si les choix multiples sont autorisés pour le sondage
                 bool choixMultiple;
                 if (check == "checked")
                 { choixMultiple = true; }
                 else choixMultiple = false;
 
+                Guid generationCleDesactivation = Guid.NewGuid(); //Génération d'une valeur aléatoire de type Guid pour le lien de désactivation du sondage
+                string cleDesactivation = generationCleDesactivation.ToString(); //Convertie la valeur du Guid en string
 
-                Choix.RemoveAll(string.IsNullOrEmpty);
-                Sondage NouveauSondage = new Sondage(question, Choix, choixMultiple);
+                
+                Sondage NouveauSondage = new Sondage(question, Choix, choixMultiple, cleDesactivation);
 
                 ViewBag.dernierIDBDD = SQL.SauvegarderEnBDD(NouveauSondage); //Appel de la méthode permettant de sauvegarder le sondage dans la BDD
-                                                                             //et récupération du dernier ID du sondage
-                Guid cleDesactivation = Guid.NewGuid();
-                cleDesactivation.ToString();
+                                                                             //et récupération de l'ID du sondage en cours
+
+                
 
                 ViewBag.cleDesactivation = cleDesactivation;
 
@@ -66,6 +73,7 @@ namespace Projet1.Controllers
         {
             ViewBag.idSondage = Id;
 
+            // On vérifie si le sondage n'a pas été précédemment désactivé
             QuestionEtChoix QuestionEtChoixBDD = SQL.GetQuestionEtChoix(Id);
             if (QuestionEtChoixBDD.sondageActif == true)
             {
@@ -84,15 +92,16 @@ namespace Projet1.Controllers
         {
             ViewBag.idSondage = idSondage;
 
-            if (ChoixSondage != null)
+            if (ChoixSondage != null) //Permet de vérifier que l'utilisateur a sélectionné au moins une réponse
             {
-                HttpCookie MyCookie = Request.Cookies[idSondage.ToString()];
+                HttpCookie MyCookie = Request.Cookies[idSondage.ToString()]; //Verifie la présence de l'id du sondage en string dans le Cookie
 
                 if (MyCookie == null)
                 {
 
-                    MyCookie = new HttpCookie(idSondage.ToString());
-                    //Response.Cookies.Add(MyCookie);
+                    MyCookie = new HttpCookie(idSondage.ToString()); //Si le vote de l'utilisateur est possible, génération d'un cookie,
+                                                                     //besoin d'une conversion de l'id du sondage en string
+                    Response.Cookies.Add(MyCookie); //Ajout du cookie dans le navigateur de l'utilisateur
                     SQL.Voter(idSondage, ChoixSondage);
                     return View("Vote");
                 }
@@ -100,7 +109,6 @@ namespace Projet1.Controllers
                 {
                     return View("DejaVote");
                 }
-
 
             }
             else
@@ -113,24 +121,26 @@ namespace Projet1.Controllers
         public ActionResult Resultats(int Id)
         {
             ResultatsSondage ResultatsBDD = SQL.GetResultats(Id);
-
-            int nbDeVotesTotal = 0;
-
-            foreach (int nb in ResultatsBDD.NbDeVotantsParChoix)
-            {
-                nbDeVotesTotal += nb;
-            }
-
-            ViewBag.nbDeVotesTotal = nbDeVotesTotal;
-
+                        
             return View("Resultat", ResultatsBDD);
         }
 
-        public ActionResult SondageDesactive(int Id, string Key)
+        public ActionResult SondageDesactive(int Id, string key)
         {
-            SQL.DesactivationSondage(Id);
+            string keyBDD = SQL.VerificationCleDesactivation(Id, key);
 
-            return View("SondageSupprime");
+            if(keyBDD == key)
+            {
+                SQL.DesactivationSondage(Id);
+
+                return View("SondageSupprime");
+            }
+            else
+            {
+                
+                return View("ErreurSondageSupprime");
+            }
+            
         }
 
     }

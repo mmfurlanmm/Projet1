@@ -26,13 +26,14 @@
 
     <h2 id="conservezLesLiens"> Conservez bien les liens ci-dessous :</h2>
 
-
+    <!--Creation des liens de resultat, d'acces et de desactivation a partir de l'ID du sondage
+         ainsi que du GUID pour le lien de desactivation-->
     <div id="liens">
         <p class=lien> Accéder au sondage : <a href='/Sondage/Sondage?Id=@ViewBag.dernierIDBDD'>http://localhost:59213/Sondage/Sondage?Id=@ViewBag.dernierIDBDD</a> </p>
 
         <p class=lien> Résultats du sondage : <a href='/Sondage/Resultats?Id=@ViewBag.dernierIDBDD'>http://localhost:59213/Sondage/Resultats?Id=@ViewBag.dernierIDBDD</a> </p>
 
-        <p class=lien> Désactivation du sondage : <a href="/Sondage/SondageDesactive?Id=@ViewBag.dernierIDBDD&?key=@ViewBag.cleDesactivation">http://localhost:59213/Sondage/SondageDesactive?Id=@ViewBag.dernierIDBDD&?key=@ViewBag.cleDesactivation</a> </p>
+        <p class=lien> Désactivation du sondage : <a href="/Sondage/SondageDesactive?Id=@ViewBag.dernierIDBDD&key=@ViewBag.cleDesactivation">http://localhost:59213/Sondage/SondageDesactive?Id=@ViewBag.dernierIDBDD&key=@ViewBag.cleDesactivation</a> </p>
     </div>
 
 

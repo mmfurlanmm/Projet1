@@ -17,12 +17,13 @@ namespace Projet1.Models
         public bool SondageActif { get; set; }
         public int NbVotantsParChoix { get; set; }
 
-        public Sondage(string _Question, List<string> _Choix, bool _choixMultiple)
+        public Sondage(string _Question, List<string> _Choix, bool _choixMultiple, string _lienSuppression)
         {
             
             Question = _Question;
             Choix = _Choix;
             ChoixMultiple = _choixMultiple;
+            LienSuppression = _lienSuppression;
            
 
         }

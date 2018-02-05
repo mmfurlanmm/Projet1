@@ -37,14 +37,15 @@
 
     <form id="sectionChoixReponse" method="post" action="Voter">
         <input type="hidden" name="idSondage" value="@Model.Idsondage" />
-        @{ int i = 0; //itérateur permettant de parcourir la liste contenant les choix possible. Seuls les choix qui sont cochés seront retournés.
+        @{ int i = 0; //itérateur permettant de parcourir la liste contenant les choix possible,
+                      //seuls les choix qui sont cochés seront retournés.
             if (Model.choixMultiple == true)
 
             { <div id="sectionChoisissezReponseEtNbVotants">
                     <p id="choisissezReponse"> Choisissez une ou plusieurs réponses :</p>
                     <p id="nbVotants">Nombre de votants : @Model.nbVotants</p>
                 </div>
-                foreach (string afficherChoixDansSondage in Model.Choix)
+                foreach (string afficherChoixDansSondage in Model.Choix) // Affiche la liste des choix multiples pour voter 
                 {
                     <input type="checkbox" id="Choix" name="ChoixSondage" class="choixCheck" value=@Model.IdChoix[i] /> i++;
                     <label for="Choix"><input type="text" value="@afficherChoixDansSondage" readonly class="choixReponse"></label>
@@ -60,7 +61,7 @@
                     <p id="choisissezReponse"> Choisissez une réponse :</p>
                     <p id="nbVotants">Nombre de votants : @Model.nbVotants</p>
                 </div>
-                foreach (string afficherChoixDansSondage in Model.Choix)
+                foreach (string afficherChoixDansSondage in Model.Choix) // Affiche la liste des choix simple pour voter
                 {
                     <input type="radio" id="Choix" name="ChoixSondage" class="choixCheck" value=@Model.IdChoix[i] /> i++;
                     <label for="Choix"><input type="text" value="@afficherChoixDansSondage" readonly class="choixReponse"></label>

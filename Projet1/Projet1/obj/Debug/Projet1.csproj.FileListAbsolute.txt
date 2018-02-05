@@ -54,3 +54,84 @@ C:\Users\mmfur\ADAI\ProjetFinal\Projet1 - bis\Projet1\obj\Debug\Projet1.csprojRe
 C:\Users\mmfur\ADAI\ProjetFinal\Projet1 - bis\Projet1\obj\Debug\Projet1.csproj.CoreCompileInputs.cache
 C:\Users\mmfur\ADAI\ProjetFinal\Projet1 - bis\Projet1\obj\Debug\Projet1.dll
 C:\Users\mmfur\ADAI\ProjetFinal\Projet1 - bis\Projet1\obj\Debug\Projet1.pdb
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\bin\Projet1.dll.config
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\bin\Projet1.dll
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\bin\Projet1.pdb
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\bin\Microsoft.Web.Infrastructure.dll
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\bin\System.Web.Helpers.dll
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\bin\System.Web.Mvc.dll
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\bin\System.Web.Razor.dll
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\bin\System.Web.Webpages.Deployment.dll
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\bin\System.Web.Webpages.dll
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\bin\System.Web.Webpages.Razor.dll
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\bin\System.Web.Razor.xml
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\bin\System.Web.Webpages.xml
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\bin\System.Web.Webpages.Deployment.xml
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\bin\System.Web.Webpages.Razor.xml
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\bin\System.Web.Helpers.xml
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\bin\System.Web.Mvc.xml
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\bin\fr\System.Web.Razor.resources.dll
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\bin\fr\System.Web.Webpages.resources.dll
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\bin\fr\System.Web.Webpages.Deployment.resources.dll
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\bin\fr\System.Web.Webpages.Razor.resources.dll
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\bin\fr\System.Web.Helpers.resources.dll
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\bin\fr\System.Web.Mvc.resources.dll
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\obj\Debug\Projet1.csprojResolveAssemblyReference.cache
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\obj\Debug\Projet1.dll
+Z:\Tentative desesperee projet\Projet1\Projet1\Projet1\obj\Debug\Projet1.pdb
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\bin\Projet1.dll.config
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\bin\Projet1.dll
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\bin\Projet1.pdb
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\bin\System.Web.Helpers.dll
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\bin\System.Web.Mvc.dll
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\bin\System.Web.Razor.dll
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\bin\System.Web.Webpages.Deployment.dll
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\bin\System.Web.Webpages.dll
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\bin\System.Web.Webpages.Razor.dll
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\bin\System.Web.Razor.xml
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\bin\System.Web.Webpages.xml
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\bin\System.Web.Webpages.Deployment.xml
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\bin\System.Web.Webpages.Razor.xml
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\bin\System.Web.Helpers.xml
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\bin\System.Web.Mvc.xml
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\bin\fr\System.Web.Razor.resources.dll
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\bin\fr\System.Web.Webpages.resources.dll
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\bin\fr\System.Web.Webpages.Deployment.resources.dll
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\bin\fr\System.Web.Webpages.Razor.resources.dll
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\bin\fr\System.Web.Helpers.resources.dll
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\bin\fr\System.Web.Mvc.resources.dll
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\obj\Debug\Projet1.csprojResolveAssemblyReference.cache
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\obj\Debug\Projet1.dll
+C:\Users\adai04\Desktop\Nouveau dossier\Projet1\obj\Debug\Projet1.pdb
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\bin\Projet1.dll.config
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\bin\Projet1.dll
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\bin\Projet1.pdb
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\bin\System.Web.Helpers.dll
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\bin\System.Web.Mvc.dll
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\bin\System.Web.Razor.dll
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\bin\System.Web.Webpages.Deployment.dll
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\bin\System.Web.Webpages.dll
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\bin\System.Web.Webpages.Razor.dll
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\bin\System.Web.Razor.xml
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\bin\System.Web.Webpages.xml
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\bin\System.Web.Webpages.Deployment.xml
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\bin\System.Web.Webpages.Razor.xml
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\bin\System.Web.Helpers.xml
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\bin\System.Web.Mvc.xml
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\bin\fr\System.Web.Razor.resources.dll
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\bin\fr\System.Web.Webpages.resources.dll
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\bin\fr\System.Web.Webpages.Deployment.resources.dll
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\bin\fr\System.Web.Webpages.Razor.resources.dll
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\bin\fr\System.Web.Helpers.resources.dll
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\bin\fr\System.Web.Mvc.resources.dll
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\obj\Debug\Projet1.csprojResolveAssemblyReference.cache
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\obj\Debug\Projet1.dll
+C:\Users\adai101\Desktop\Nouveau dossier\Projet1\obj\Debug\Projet1.pdb
